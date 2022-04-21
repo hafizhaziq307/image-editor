@@ -1,6 +1,7 @@
 <script>
-  import { imageSource, currentTool } from "../../store.js";
-  import Tools from "../../components/tools/Tools.svelte";
+  import { currentTool, imageObj } from "../../store.js";
+  import { tauri } from "@tauri-apps/api";
+  import Tools from "../tools/Tools.svelte";
   import Resize from "../../components/tools/Resize.svelte";
 </script>
 
@@ -16,7 +17,7 @@
       <!-- image to edit -->
       <section
         class="border col-span-10 row-span-6 rounded-md p-2 bg-gray-200 border-gray-400 grid place-content-center">
-        <img src={$imageSource} alt="img" />
+        <img src={tauri.convertFileSrc($imageObj.path)} alt="img" />
       </section>
 
       <!-- tool details -->

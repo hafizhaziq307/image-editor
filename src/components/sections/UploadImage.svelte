@@ -1,17 +1,21 @@
 <script>
   import { dialog, tauri } from "@tauri-apps/api";
-  import { phase, imageSource } from "../../store.js";
+  import { phase, imageObj } from "../../store.js";
 
   let currentImage;
 
   const uploadImage = async () => {
     currentImage = await dialog.open();
 
-    $imageSource = tauri.convertFileSrc(currentImage);
+    if (currentImage != null) $phase = 2;
 
-    if (currentImage != null) {
-      phase.update((item) => (item = 2));
-    }
+    let promise = await tauri.invoke("get_image_dimensions", {
+      path: currentImage,
+    });
+
+    $imageObj.path = currentImage;
+    $imageObj.width = promise[0];
+    $imageObj.height = promise[1];
   };
 </script>
 

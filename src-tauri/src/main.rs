@@ -3,25 +3,36 @@
   windows_subsystem = "windows"
 )]
 
-extern crate photon_rs;
-use photon_rs::native;
+use image::{image_dimensions};
+use tauri;
 
 #[tauri::command]
-fn edit_image(image: &str, path: &str) -> () {
-  // convert path file to photonImage
-  let mut test_img = native::open_image(image).unwrap();
+fn get_image_dimensions(path: &str) -> (u32, u32) {
+  println!("input: {}", path);
 
-  // edit
-  photon_rs::channels::alter_red_channel(&mut test_img, 40);
+  let dimension = image_dimensions(path).unwrap();
 
-  let full_str = path.to_owned() + "new_image.png";
-  native::save_image(test_img, &full_str);
+  return dimension;
 }
+
+
+// #[tauri::command]
+// fn edit_image(image: &str, path: &str) -> () {
+//   // convert path file to photonImage
+//   let mut test_img = native::open_image(image).unwrap();
+  
+
+//   // edit
+//   photon_rs::channels::alter_red_channel(&mut test_img, 40);
+
+//   let full_str = path.to_owned() + "new_image.png";
+//   native::save_image(test_img, &full_str);
+// }
 
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![edit_image])
+    .invoke_handler(tauri::generate_handler![get_image_dimensions])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

@@ -1,8 +1,8 @@
 <script>
   import { phase } from "./store.js";
-  import EditImage from "./components/section/EditImage.svelte";
-  import Header from "./components/section/Header.svelte";
-  import UploadImage from "./components/section/UploadImage.svelte";
+  import EditImage from "./components/sections/EditImage.svelte";
+  import Header from "./components/sections/Header.svelte";
+  import UploadImage from "./components/sections/UploadImage.svelte";
 </script>
 
 <main class="h-full w-full">

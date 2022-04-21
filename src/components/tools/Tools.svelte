@@ -2,7 +2,7 @@
   import { currentTool } from "../../store.js";
 
   const updateCurrentTool = (tool) => {
-    currentTool.update((item) => (item = tool));
+    $currentTool = tool;
   };
 </script>
 
