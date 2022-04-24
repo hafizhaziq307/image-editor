@@ -1,8 +1,8 @@
 <script>
-  import { currentTool } from "../../store.js";
+  import { currentTool } from "../../stores/store.js";
 
   const updateCurrentTool = (tool) => {
-    $currentTool = tool;
+    currentTool.set(tool);
   };
 </script>
 

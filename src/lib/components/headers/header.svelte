@@ -1,7 +1,7 @@
 <script>
   import ClickOutside from "svelte-click-outside";
   import { fly } from "svelte/transition";
-  import Icon from "../icons/Icon.svelte";
+  import Icon from "../icons/icon.svelte";
   let trigger;
   let isShow = false;
 </script>

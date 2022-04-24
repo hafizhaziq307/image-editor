@@ -1,24 +1,12 @@
 <script>
-  import { imageObj } from "../../store.js";
+  import { imageWidth, imageHeight } from "../../stores/store.js";
 
-  let width = $imageObj.width;
-  let height = $imageObj.height;
-  let minWidth;
-  let minHeight;
+  let width = $imageWidth;
+  let height = $imageHeight;
 
-  // Simplified fraction by finding the GCD and dividing by it.
-  function reduce(number, denomin) {
-    var gcd = function gcd(a, b) {
-      return b ? gcd(b, a % b) : a;
-    };
-    gcd = gcd(number, denomin);
-    return [number / gcd, denomin / gcd];
-  }
-
-  const resize = () => {
-    let test = reduce(484, 272);
-    // let test = reduce(width, height);
-    console.log(test);
+  const setDimensions = (w, h) => {
+    imageWidth.set(w);
+    imageHeight.set(h);
   };
 </script>
 
@@ -28,7 +16,7 @@
       <div>width</div>
       <input
         type="text"
-        value={width}
+        bind:value={width}
         class="w-full border border-gray-300 focus:border-blue-600 focus:outline-none rounded px-2 py-1" />
     </div>
 
@@ -36,14 +24,14 @@
       <div>height</div>
       <input
         type="text"
-        value={height}
+        bind:value={height}
         class="w-full border border-gray-300 focus:border-blue-600 focus:outline-none rounded px-2 py-1" />
     </div>
   </div>
 
   <div class="text-center">
     <button
-      on:click={resize}
+      on:click={setDimensions(width, height)}
       class="py-2 px-4 rounded bg-blue-600 hover:bg-blue-500 text-sm text-gray-100"
       >Resize</button>
   </div>
