@@ -7,3 +7,5 @@ export const imageWidth = writable("");
 export const imageHeight = writable("");
 
 export const currentTool = writable("");
+
+export const queueEdits = writable("");

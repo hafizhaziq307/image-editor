@@ -1,5 +1,5 @@
 <script>
-  import { imageWidth, imageHeight } from "../../stores/store.js";
+  import { imageWidth, imageHeight, queueEdits } from "../../stores/store.js";
 
   let width = $imageWidth;
   let height = $imageHeight;
@@ -7,6 +7,12 @@
   const setDimensions = (w, h) => {
     imageWidth.set(w);
     imageHeight.set(h);
+
+    queueEdits.update(
+      $queueEdits == null || $queueEdits == ""
+        ? (item) => item + `resize ${w} ${h}`
+        : (item) => item + `::resize ${w} ${h}`
+    );
   };
 </script>
 

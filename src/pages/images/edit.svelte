@@ -4,8 +4,9 @@
     imagePath,
     imageWidth,
     imageHeight,
+    queueEdits,
   } from "../../lib/stores/store.js";
-  import { tauri } from "@tauri-apps/api";
+  import { path, tauri, notification } from "@tauri-apps/api";
   import Tools from "../../lib/components/tools/index.svelte";
   import Resize from "../../lib/components/tools/resize.svelte";
 
@@ -14,6 +15,16 @@
   $: if ($imagePath != null) {
     imageSrc = tauri.convertFileSrc($imagePath);
   }
+
+  const editImage = async () => {
+    await tauri.invoke("edit_image", {
+      imagePath: $imagePath,
+      queues: $queueEdits,
+      downloadDir: await path.downloadDir(),
+    });
+
+    notification.sendNotification("download completed");
+  };
 </script>
 
 <div class="flex w-full p-2">
@@ -49,15 +60,7 @@
     <section
       class="border rounded-md p-2 flex justify-end w-full border-gray-400 mt-2">
       <button
-        on:click={() =>
-          console.log(
-            "Path: " +
-              $imagePath +
-              "\nWidth: " +
-              $imageWidth +
-              "\nHeight: " +
-              $imageHeight
-          )}
+        on:click={editImage}
         class="bg-green-600 hover:bg-green-500  text-gray-100 px-4 py-2 rounded row-span-1 text-sm"
         >Finish</button>
     </section>
