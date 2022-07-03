@@ -6,6 +6,10 @@ export const imagePath = writable("");
 export const imageWidth = writable("");
 export const imageHeight = writable("");
 
-export const currentTool = writable("");
+export const imageCurrentWidth = writable("");
+
+export const imageCurrentHeight = writable("");
+
+export const currentTool = writable();
 
 export const queueEdits = writable("");

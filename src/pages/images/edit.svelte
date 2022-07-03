@@ -4,10 +4,11 @@
     imagePath,
     imageWidth,
     imageHeight,
+    imageCurrentWidth,
+    imageCurrentHeight,
     queueEdits,
   } from "../../lib/stores/store.js";
   import { path, tauri, notification } from "@tauri-apps/api";
-  import Tools from "../../lib/components/tools/index.svelte";
   import Resize from "../../lib/components/tools/resize.svelte";
 
   let imageSrc;
@@ -23,46 +24,41 @@
       downloadDir: await path.downloadDir(),
     });
 
-    notification.sendNotification("download completed");
+    // notification.sendNotification("download completed");
   };
 </script>
 
 <div class="flex w-full p-2">
   <div class="w-full">
-    <div class="grid grid-cols-12 grid-rows-6 gap-2  h-[82vh]">
-      <!-- list tools available -->
-      <section
-        class="col-span-2 row-span-3 border rounded-md p-2 border-gray-400">
-        <Tools />
-      </section>
-
+    <div class="grid grid-cols-12 gap-4">
       <!-- image to edit -->
       <section
-        class="border col-span-10 row-span-6 rounded-md p-2 bg-gray-200 border-gray-400 grid place-content-center">
-        <img
-          src={imageSrc}
-          style="width: {$imageWidth}px; height: {$imageHeight}px;"
-          alt="img" />
+        class="col-span-10 h-[100vh] w-full overflow-y-auto rounded-md bg-white p-4 shadow-xl">
+        <div
+          style="width: {($imageCurrentWidth / $imageWidth) *
+            100}%; height: {($imageCurrentHeight / $imageHeight) * 100}%;">
+          <img src={imageSrc} alt="img" class="h-full w-full" />
+        </div>
       </section>
 
       <!-- tool details -->
-      <section
-        class="border col-span-2 row-span-3 rounded-md p-2 border-gray-400">
-        {#if $currentTool == "resize"}
-          <Resize />
-        {:else if $currentTool == "crop"}
-          <p>crop</p>
-        {/if}
-      </section>
-    </div>
+      <div class="col-span-2 h-[90vh]">
+        <section class="h-[80vh] w-full rounded-md bg-white p-4 shadow-xl">
+          {#if $currentTool == "resize"}
+            <Resize />
+          {:else if $currentTool == "crop"}
+            <p>crop</p>
+          {/if}
+        </section>
 
-    <!-- finish button -->
-    <section
-      class="border rounded-md p-2 flex justify-end w-full border-gray-400 mt-2">
-      <button
-        on:click={editImage}
-        class="bg-green-600 hover:bg-green-500  text-gray-100 px-4 py-2 rounded row-span-1 text-sm"
-        >Finish</button>
-    </section>
+        <section
+          class="mt-4 flex h-[9vh] w-full justify-end rounded-md bg-white p-4 shadow-xl">
+          <button
+            on:click={editImage}
+            class="inline-flex w-full justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200"
+            >Finish</button>
+        </section>
+      </div>
+    </div>
   </div>
 </div>

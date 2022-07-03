@@ -1,44 +1,49 @@
 <script>
-  import { imageWidth, imageHeight, queueEdits } from "../../stores/store.js";
+  import { get } from "svelte/store";
 
-  let width = $imageWidth;
-  let height = $imageHeight;
+  import {
+    imageCurrentWidth,
+    imageCurrentHeight,
+    imageWidth,
+    imageHeight,
+    queueEdits,
+  } from "../../stores/store.js";
 
   const setDimensions = (w, h) => {
-    imageWidth.set(w);
-    imageHeight.set(h);
-
-    queueEdits.update(
-      $queueEdits == null || $queueEdits == ""
-        ? (item) => item + `resize ${w} ${h}`
-        : (item) => item + `::resize ${w} ${h}`
-    );
+    imageCurrentWidth.set(w);
+    imageCurrentHeight.set(h);
   };
+
+  let widthImg = $imageCurrentWidth;
+  let heightImg = $imageCurrentHeight;
+
+  console.log("width: ", widthImg);
+  console.log("height: ", heightImg);
 </script>
 
-<div class="flex flex-col justify-between h-full">
+<div class="flex h-full flex-col justify-between">
   <div class="space-y-5">
     <div>
-      <div>width</div>
+      <span>width</span>
       <input
         type="text"
-        bind:value={width}
-        class="w-full border border-gray-300 focus:border-blue-600 focus:outline-none rounded px-2 py-1" />
+        bind:value={widthImg}
+        class="w-full rounded border border-gray-300 px-2 py-1 focus:border-blue-600 focus:outline-none" />
     </div>
 
     <div>
-      <div>height</div>
+      <span>height</span>
       <input
         type="text"
-        bind:value={height}
-        class="w-full border border-gray-300 focus:border-blue-600 focus:outline-none rounded px-2 py-1" />
+        bind:value={heightImg}
+        class="w-full rounded border border-gray-300 px-2 py-1 focus:border-blue-600 focus:outline-none" />
     </div>
   </div>
 
   <div class="text-center">
     <button
-      on:click={setDimensions(width, height)}
-      class="py-2 px-4 rounded bg-blue-600 hover:bg-blue-500 text-sm text-gray-100"
+      on:click={setDimensions(widthImg, heightImg)}
+      class="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 active:ring-2 active:ring-offset-4"
       >Resize</button>
   </div>
 </div>

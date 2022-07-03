@@ -1,29 +1,26 @@
 {
-  "name": "easyImage",
-  "version": "1.0.0",
+  "name": "image-editor",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "tauri": "tauri",
-    "watch": "npx tailwindcss -i ./public/tailwind.css -o ./public/global.css --watch"
+    "watch": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.0",
-    "@tauri-apps/cli": "^1.0.0-rc.8",
-    "rollup": "^2.3.4",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.0",
-    "svelte": "^3.0.0",
-    "tailwindcss": "^3.0.24"
+    "@rgossiaux/svelte-headlessui": "^1.0.2",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "@tauri-apps/cli": "^1.0.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "svelte": "^3.44.0",
+    "tailwindcss": "^3.1.4",
+    "vite": "^2.9.9"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.0.0-rc.3",
-    "sirv-cli": "^2.0.0",
-    "svelte-click-outside": "^1.0.0"
+    "@tauri-apps/api": "^1.0.1"
   }
 }
