@@ -24,7 +24,7 @@
       downloadDir: await path.downloadDir(),
     });
 
-    // notification.sendNotification("download completed");
+    notification.sendNotification("download completed");
   };
 </script>
 

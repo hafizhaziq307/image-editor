@@ -12,6 +12,12 @@
   const setDimensions = (w, h) => {
     imageCurrentWidth.set(w);
     imageCurrentHeight.set(h);
+
+    if ($queueEdits == null || $queueEdits == '') {
+      queueEdits.update(n => n + "resize" + " " + w + " " + h);
+    }else{
+      queueEdits.update(n => n + "::resize" + " " + w + " " + h);
+    }
   };
 
   let widthImg = $imageCurrentWidth;
